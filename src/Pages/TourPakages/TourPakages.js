@@ -14,7 +14,7 @@ function TourPackages() {
   const [activeSection, setActiveSection] = useState(null);
 
   const IMAGE_BASE_URL = "https://demandonsale.com/trav-chap/";
-  const Home_IMAGE_BASE_URL =
+  const HOME_IMAGE_BASE_URL =
     "https://demandonsale.com/trav-chap/uploads/location/";
 
   // 🧩 Fetch data
@@ -25,8 +25,8 @@ function TourPackages() {
       try {
         setLoading(true);
         const API_URL = `https://api.codetabs.com/v1/proxy?quest=https://demandonsale.com/trav-chap/api/locations/${category}`;
-
         const res = await fetch(API_URL, { signal: controller.signal });
+
         if (!res.ok) throw new Error("Failed to fetch data");
 
         const result = await res.json();
@@ -66,11 +66,16 @@ function TourPackages() {
   }, [packages]);
 
   if (loading)
-    return <p className="text-center mt-10 text-gray-600 font-medium">Loading...</p>;
-  if (error)
-    return <p className="text-center text-red-500 mt-10 font-semibold">{error}</p>;
-  if (!locationData) return null;
+    return (
+      <p className="text-center mt-10 text-gray-600 font-medium">Loading...</p>
+    );
 
+  if (error)
+    return (
+      <p className="text-center text-red-500 mt-10 font-semibold">{error}</p>
+    );
+
+  if (!locationData) return null;
 
   const groupedPackages = packages.reduce((acc, pkg) => {
     const duration = pkg.duration || "Others";
@@ -79,7 +84,6 @@ function TourPackages() {
     return acc;
   }, {});
 
-  // Convert to array for rendering
   const sections = Object.keys(groupedPackages).map((duration, index) => ({
     id: `sec${index + 1}`,
     label: duration,
@@ -88,11 +92,11 @@ function TourPackages() {
 
   return (
     <>
-      
+      {/* Hero Section */}
       <div
         className="relative w-full h-60 md:h-96 bg-cover bg-center flex items-center justify-center"
         style={{
-          backgroundImage: `url(${Home_IMAGE_BASE_URL}${locationData.image})`,
+          backgroundImage: `url(${HOME_IMAGE_BASE_URL}${locationData.image})`,
         }}
       >
         <div className="absolute inset-0 bg-black/40"></div>
@@ -101,7 +105,7 @@ function TourPackages() {
         </h2>
       </div>
 
-      
+      {/* About Section */}
       <div className="p-4 shadow-md m-4 md:m-6 bg-white rounded-lg">
         <h2 className="text-xl md:text-2xl font-bold py-2">
           About {locationData.name}
@@ -112,18 +116,22 @@ function TourPackages() {
         />
       </div>
 
+      {/* Main Layout */}
       <div className="flex flex-col md:flex-row mt-10 px-4 md:px-6">
-        
+        {/* Sidebar */}
         <aside className="hidden md:block w-1/4 sticky top-24 h-fit bg-white shadow-md rounded-lg p-4">
           <h2 className="font-bold text-lg mb-3">PACKAGES</h2>
           <ul className="space-y-2 text-gray-700 font-medium">
             {sections.map((s) => (
               <li
                 key={s.id}
-                className={`cursor-pointer rounded p-1 ${activeSection === s.id ? "text-blue-600 font-semibold" : ""
-                  }`}
+                className={`cursor-pointer rounded p-1 ${
+                  activeSection === s.id ? "text-blue-600 font-semibold" : ""
+                }`}
                 onClick={() => {
-                  sectionRefs.current[s.id]?.scrollIntoView({ behavior: "smooth" });
+                  sectionRefs.current[s.id]?.scrollIntoView({
+                    behavior: "smooth",
+                  });
                 }}
               >
                 {s.label}
@@ -132,17 +140,20 @@ function TourPackages() {
           </ul>
         </aside>
 
-        
+        {/* Mobile Scroll Tabs */}
         <div className="md:hidden sticky top-20 z-20 bg-white shadow-md overflow-x-auto whitespace-nowrap flex gap-4 px-4 py-2">
           {sections.map((s) => (
             <button
               key={s.id}
-              className={`px-3 py-1 rounded-full text-sm ${activeSection === s.id
-                ? "bg-blue-600 text-white"
-                : "bg-gray-100 text-gray-700"
-                }`}
+              className={`px-3 py-1 rounded-full text-sm ${
+                activeSection === s.id
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-100 text-gray-700"
+              }`}
               onClick={() => {
-                sectionRefs.current[s.id]?.scrollIntoView({ behavior: "smooth" });
+                sectionRefs.current[s.id]?.scrollIntoView({
+                  behavior: "smooth",
+                });
               }}
             >
               {s.label}
@@ -150,7 +161,7 @@ function TourPackages() {
           ))}
         </div>
 
-        
+        {/* Packages Grid */}
         <main className="w-full md:w-3/4 md:ml-6 space-y-12 mt-4 md:mt-0">
           {sections.map((s) => (
             <section
@@ -179,9 +190,6 @@ function TourPackages() {
                         alt={pkg.title}
                         className="w-full h-36 md:h-40 object-cover rounded-md"
                       />
-
-                      
-                     
                     </div>
 
                     <h3 className="text-center md:text-lg font-semibold mt-3">
@@ -193,19 +201,24 @@ function TourPackages() {
                     <p className="text-xs md:text-sm text-gray-500 mt-1">
                       Code: {pkg.package_code}
                     </p>
+
                     <div className="flex flex-wrap gap-2 md:gap-3 text-gray-600 mt-3 text-[11px] md:text-[12px]">
                       <span>🍽 Meal</span>
                       <span>🏨 Hotel</span>
                       <span>🚗 Transport</span>
                       <span>👓 Sightseeing</span>
                     </div>
+
                     <h4 className="text-blue-600 font-bold text-lg md:text-xl mt-1">
                       ₹{pkg.price}/-
                     </h4>
-                    <p className="text-xs md:text-sm text-gray-500">Per Person</p>
+                    <p className="text-xs md:text-sm text-gray-500">
+                      Per Person
+                    </p>
+
                     <button
                       className="mt-3 md:mt-4 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 text-sm md:text-base"
-                      onClick={() => navigate(`/package/${pkg.package_code}`)}
+                      onClick={() => navigate(`/package/${pkg.package_code}`)} // ✅ FIXED
                     >
                       VIEW DETAILS
                     </button>
@@ -215,7 +228,6 @@ function TourPackages() {
             </section>
           ))}
         </main>
-
       </div>
     </>
   );
