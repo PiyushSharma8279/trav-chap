@@ -61,10 +61,9 @@ function PackageRegister() {
       formDataToSend.append("password", formData.password);
       formDataToSend.append("confirmPassword", formData.confirmPassword);
 
-      // ✅ Direct API call (no need for allorigins proxy if CORS is fixed)
       const res = await fetch("https://demandonsale.com/trav-chap/api/userRegistration", {
         method: "POST",
-        body: formDataToSend, // automatically sets multipart/form-data headers
+        body: formDataToSend,
       });
 
       const data = await res.json();

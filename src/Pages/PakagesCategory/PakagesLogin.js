@@ -11,8 +11,6 @@ function PakagesLogin() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    // ✅ Check if user is already logged in
     const savedUser = localStorage.getItem("travchap_user");
     if (savedUser) {
       setUser(JSON.parse(savedUser));
@@ -37,17 +35,14 @@ function PakagesLogin() {
       formData.append("username", username);
       formData.append("password", password);
 
-      const res = await fetch(API_URL, {
-        method: "POST",
-        body: formData,
-      });
-
+      const res = await fetch(API_URL, { method: "POST", body: formData });
       const data = await res.json();
       console.log("✅ Login API Response:", data);
 
       if (data.status === true || data.status === "success") {
-        localStorage.setItem("travchap_user", JSON.stringify(data.data));
-        setUser(data.data);
+        const userData = data.data?.user || data.data || {}; // 🧠 handle nested object
+        localStorage.setItem("travchap_user", JSON.stringify(userData));
+        setUser(userData);
       } else {
         setError(data.message || "❌ Invalid username or password.");
       }
@@ -64,7 +59,7 @@ function PakagesLogin() {
     setUser(null);
   };
 
-  // ✅ If logged in — show account details
+  // ✅ If logged in
   if (user) {
     return (
       <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
@@ -72,8 +67,25 @@ function PakagesLogin() {
           <h2 className="text-2xl font-bold text-[#0a2c53] mb-6 text-center">
             Your Account
           </h2>
+
           <div className="space-y-4 text-gray-700">
-    
+            <p>
+              <span className="font-semibold">👤 Name:</span>{" "}
+              {user.full_name || user.name || "N/A"}
+            </p>
+            <p>
+              <span className="font-semibold">📧 Email:</span>{" "}
+              {user.email || "N/A"}
+            </p>
+            <p>
+              <span className="font-semibold">🆔 Username:</span>{" "}
+              {user.username || "N/A"}
+            </p>
+            {user.mobile && (
+              <p>
+                <span className="font-semibold">📱 Mobile:</span> {user.mobile}
+              </p>
+            )}
           </div>
 
           <div className="mt-8 flex flex-col gap-4">
@@ -95,7 +107,7 @@ function PakagesLogin() {
     );
   }
 
-  // ✅ Otherwise — show login form
+  // ✅ Otherwise show login form
   return (
     <>
       <div

@@ -301,7 +301,44 @@ function PackageDetails() {
       </div>
 
       {/* Booking Modal (unchanged) */}
-     {showModal && ( <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start md:items-center z-50 overflow-y-auto"> <div className="bg-[#083d56] text-white p-6 rounded-lg w-[95%] md:w-[90%] max-w-4xl relative mt-6 md:mt-20 overflow-y-auto max-h-[90vh]"> <button className="absolute top-2 right-2 text-white text-xl font-bold" onClick={() => setShowModal(false)} > ✖ </button> <h2 className="text-center text-lg md:text-2xl font-bold mb-6"> Booking Now </h2> <form onSubmit={handleBookingSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4" > {[ { label: "Booking code*", name: "package_code", type: "text" }, { label: "First Guest Name *", name: "first_guest_name", type: "text" }, { label: "Check In Date *", name: "check_in_date", type: "date" }, { label: "Check Out Date *", name: "check_out_date", type: "date" }, { label: "Mobile No *", name: "mobile_no", type: "number" }, ].map((input) => ( <div key={input.name} className="flex flex-col gap-1"> <label>{input.label}</label> <input type={input.type} name={input.name} value={bookingData[input.name]} onChange={handleBookingChange} className="p-2 rounded text-black" required /> </div> ))} <div className="flex flex-col gap-1"> <label>Total No. of Person *</label> <select name="total_persons" value={bookingData.total_persons} onChange={handleBookingChange} className="p-2 rounded text-black" required > <option value="">Select</option> {[0,1,2, 3, 4, 5, 6].map((n) => ( <option key={n}>{n}</option> ))} </select> </div> <div className="flex flex-col gap-1"> <label>Extra Bed</label> <select name="extra_bed" value={bookingData.extra_bed} onChange={handleBookingChange} className="p-2 rounded text-black" > <option value="">Select</option> {[0,1, 2, 3, 4, 5, 6].map((n) => ( <option key={n}>{n}</option> ))} </select> </div> <div className="flex flex-col gap-1"> <label>Child without Bed</label> <select name="child_without_bed" value={bookingData.child_without_bed} onChange={handleBookingChange} className="p-2 rounded text-black" > <option value="">Select</option> {[0,1, 2, 3, 4, 5, 6].map((n) => ( <option key={n}>{n}</option> ))} </select> </div> <div className="flex flex-col gap-1"> <label>Meal Plan *</label> <select name="meal_plan" value={bookingData.meal_plan} onChange={handleBookingChange} className="p-2 rounded text-black" required > <option value="">Select</option> <option>Room with no meal</option> <option>Breakfast</option> <option>Breakfast and Dinner</option> <option>Breakfast with lunch dinner</option> </select> </div> <div className="flex flex-col gap-1 col-span-1 md:col-span-2"> <label>Additional Information</label> <textarea name="additional_info" value={bookingData.additional_info} onChange={handleBookingChange} className="p-2 rounded text-black" /> </div> <button type="submit" disabled={submitting} className="col-span-1 md:col-span-2 bg-[#246e73] py-2 rounded text-white font-bold hover:bg-white hover:text-[#246e73] transition" > {submitting ? "Submitting..." : "Submit"} </button> </form> {responseMsg && ( <p className="text-center mt-4 font-semibold text-yellow-300"> {responseMsg} </p> )} </div> </div> )}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start md:items-center z-50 overflow-y-auto">
+          <div className="bg-[#083d56] text-white p-6 rounded-lg w-[95%] md:w-[90%] max-w-4xl relative mt-6 md:mt-20 overflow-y-auto max-h-[90vh]">
+            <button className="absolute top-2 right-2 text-white text-xl font-bold"
+              onClick={() => setShowModal(false)} > ✖ </button>
+            <h2 className="text-center text-lg md:text-2xl font-bold mb-6"> Booking Now </h2>
+            <form onSubmit={handleBookingSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4" >
+              {[{ label: "Booking code*", name: "package_code", type: "text" },
+              { label: "First Guest Name *", name: "first_guest_name", type: "text" },
+              { label: "Check In Date *", name: "check_in_date", type: "date" },
+              { label: "Check Out Date *", name: "check_out_date", type: "date" },
+              { label: "Mobile No *", name: "mobile_no", type: "number" },].map((input) => (<div key={input.name}
+                className="flex flex-col gap-1"> <label>{input.label}</label> <input type={input.type} name={input.name} value={bookingData[input.name]} onChange={handleBookingChange} className="p-2 rounded text-black" required />
+              </div>))}
+              <div className="flex flex-col gap-1">
+                <label>Total No. of Person *</label>
+                <select name="total_persons" value={bookingData.total_persons} onChange={handleBookingChange} className="p-2 rounded text-black" required >
+                  <option value="">Select</option>
+                  {[0, 1, 2, 3, 4, 5, 6].map((n) => (<option key={n}>{n}</option>))}
+                </select> </div> <div className="flex flex-col gap-1">
+                <label>Extra Bed</label>
+                <select name="extra_bed" value={bookingData.extra_bed} onChange={handleBookingChange} className="p-2 rounded text-black" >
+                  <option value="">Select</option> {[0, 1, 2, 3, 4, 5, 6].map((n) => (<option key={n}>{n}</option>))} </select>
+              </div> <div className="flex flex-col gap-1"> <label>Child without Bed</label>
+                <select name="child_without_bed" value={bookingData.child_without_bed} onChange={handleBookingChange} className="p-2 rounded text-black" >
+                  <option value="">Select</option> {[0, 1, 2, 3, 4, 5, 6].map((n) => (<option key={n}>{n}</option>))} </select> </div>
+              <div className="flex flex-col gap-1"> <label>Meal Plan *</label>
+                <select name="meal_plan" value={bookingData.meal_plan} onChange={handleBookingChange} className="p-2 rounded text-black" required >
+                  <option value="">Select</option> <option>Room with no meal</option>
+                  <option>Breakfast</option> <option>Breakfast and Dinner</option>
+                  <option>Breakfast with lunch dinner</option> </select> </div>
+              <div className="flex flex-col gap-1 col-span-1 md:col-span-2">
+                <label>Additional Information</label>
+                <textarea name="additional_info" value={bookingData.additional_info} onChange={handleBookingChange} className="p-2 rounded text-black" />
+              </div> <button type="submit" disabled={submitting} className="col-span-1 md:col-span-2 bg-[#246e73] py-2 rounded text-white font-bold hover:bg-white hover:text-[#246e73] transition" > {submitting ? "Submitting..." : "Submit"} </button>
+            </form>
+            {responseMsg && (<p className="text-center mt-4 font-semibold text-yellow-300">
+              {responseMsg} </p>)} </div> </div>)}
     </div>
   );
 }
