@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../../Components/Home/Sidebar";
 import Header from "../../../Components/Header/Header";
 import Footer from "../../../Components/Footer/Footer";
-
-import DomesticPackages from "../../../Components/Home/Pakages/DomesticPakages";
 import InternationalPakages from "../../../Components/Home/Pakages/InternationalPakages";
-import PanIndia from "../../../Components/Home/Pakages/PanIndia";
 
-function ShowPakages() {
+
+
+function ShowInternationalPakages() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -15,18 +14,12 @@ function ShowPakages() {
 
  
   const slides = [
-    {
-      img: "https://www.travelguru.com/holiday-packages/images/goa.jpg", 
-      title: "Domestic Packages"
-    },
+   
     {
       img: "https://www.travelguru.com/holiday-packages/images/london.jpg", 
       title: "International Packages"
     },
-    {
-      img: "https://img.freepik.com/free-photo/swimming-pool_74190-1977.jpg?semt=ais_hybrid&w=740&q=80", 
-      title: "Pan India Hotels"
-    }
+   
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -66,9 +59,9 @@ function ShowPakages() {
         </div>
 
          
-        <DomesticPackages/>
+        
         <InternationalPakages/>
-        <PanIndia/>
+     
 
         <Footer />
       </div>
@@ -83,4 +76,4 @@ function ShowPakages() {
   );
 }
 
-export default ShowPakages;
+export default ShowInternationalPakages;

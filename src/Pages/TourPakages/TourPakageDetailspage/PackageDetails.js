@@ -129,7 +129,6 @@ function PackageDetails() {
   const {
     title,
     price,
-    duration,
     image,
     category,
     type,
@@ -256,19 +255,19 @@ function PackageDetails() {
 
         {/* Inclusion / Exclusion */}
         <div className="grid md:grid-cols-4 gap-6 mt-10 text-sm">
-          <div className="bg-white shadow p-4 rounded">
+          <div className="bg-white shadow p-4 rounded hover:shadow-xl">
             <h3 className="font-bold mb-2">Package Inclusion</h3>
             <div dangerouslySetInnerHTML={{ __html: inclusion }} />
           </div>
-          <div className="bg-white shadow p-4 rounded">
+          <div className="bg-white shadow p-4 rounded hover:shadow-xl">
             <h3 className="font-bold mb-2">Package Exclusion</h3>
             <div dangerouslySetInnerHTML={{ __html: exclusion }} />
           </div>
-          <div className="bg-white shadow p-4 rounded">
+          <div className="bg-white shadow p-4 rounded hover:shadow-xl">
             <h3 className="font-bold mb-2">Note</h3>
             <div dangerouslySetInnerHTML={{ __html: note }} />
           </div>
-          <div className="bg-white shadow p-4 rounded">
+          <div className="bg-white shadow p-4 rounded hover:shadow-xl">
             <h3 className="font-bold mb-2">Additional Charges</h3>
             <div dangerouslySetInnerHTML={{ __html: addtional_charge }} />
           </div>

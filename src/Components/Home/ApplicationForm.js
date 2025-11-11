@@ -37,7 +37,7 @@ function ApplicationForm() {
 
   const categories = [
     { label: "Domestic Packages", path: "/domestic" },
-    { label: "Pan India Packages", path: "/pan-india" },
+    { label: "Pan India Hotels", path: "/pan-india-hotels" },
     { label: "International Packages", path: "/international" },
   ];
 

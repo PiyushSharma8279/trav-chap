@@ -11,6 +11,11 @@ import PakageRegisterContent from "./Pages/PakagesCategory/PakageRegister/Pakage
 import HelpContent from "./Pages/Help/HelpContent";
 import DomesticPackages from "./Components/Home/Pakages/DomesticPakages";
 import InternationalContent from "./Pages/PakagesCategory/InternationalPakageCategory/InternationalContent";
+import InternationalPakages from "./Components/Home/Pakages/InternationalPakages";
+import PanIndia from "./Components/Home/Pakages/PanIndia";
+import ShowDomesticPakages from "./Pages/PakagesCategory/AfterLogin/ShowDomesticPakages";
+import ShowInternationalPakages from "./Pages/PakagesCategory/AfterLogin/ShowInternationalPakages";
+import ShowPanIndiaHotels from "./Pages/PakagesCategory/AfterLogin/ShowPanIndiaHotels";
 
 function App() {
   return (
@@ -27,7 +32,9 @@ function App() {
     <Route path="/hotels/:category" element={<ContentHotelsGrid/>}/>
     <Route path="/package/:slug" element={<PakageDetailsContent/>}/>
     <Route path="/help" element={<HelpContent/>}/>
-    <Route path="/domestic" element={<DomesticPackages/>}/>
+    <Route path="/domestic" element={<ShowDomesticPakages/>}/>
+    <Route path="/international" element={<ShowInternationalPakages/>}/>
+    <Route path="/pan-india-hotels" element={<ShowPanIndiaHotels/>}/>
     <Route path="/international-pakage/:slug" element={<InternationalContent />} />
 
   </Routes>
