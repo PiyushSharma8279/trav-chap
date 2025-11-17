@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 function PackageRegister() {
   const [formData, setFormData] = useState({
     full_name: "",
+    phone_no: "",
     email: "",
     username: "",
     password: "",
@@ -32,6 +33,7 @@ function PackageRegister() {
 
     if (
       !formData.full_name ||
+       !formData.phone_no ||
       !formData.email ||
       !formData.username ||
       !formData.password
@@ -56,6 +58,7 @@ function PackageRegister() {
     try {
       const formDataToSend = new FormData();
       formDataToSend.append("full_name", formData.full_name);
+       formDataToSend.append("phone_no", formData.phone_no);
       formDataToSend.append("email", formData.email);
       formDataToSend.append("username", formData.username);
       formDataToSend.append("password", formData.password);
@@ -113,6 +116,14 @@ function PackageRegister() {
             value={formData.full_name}
             onChange={handleChange}
             placeholder="Full Name"
+            className="w-full mb-4 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+          />
+           <input
+            type="Number"
+            name="phone_no"
+            value={formData.phone_no}
+            onChange={handleChange}
+            placeholder="Phone Number"
             className="w-full mb-4 px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
           />
 

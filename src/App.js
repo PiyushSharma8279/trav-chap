@@ -16,6 +16,8 @@ import PanIndia from "./Components/Home/Pakages/PanIndia";
 import ShowDomesticPakages from "./Pages/PakagesCategory/AfterLogin/ShowDomesticPakages";
 import ShowInternationalPakages from "./Pages/PakagesCategory/AfterLogin/ShowInternationalPakages";
 import ShowPanIndiaHotels from "./Pages/PakagesCategory/AfterLogin/ShowPanIndiaHotels";
+import ResetContent from "./Pages/PakagesCategory/ResetContent";
+import AccountContent from "./Pages/PakagesCategory/AccountContent";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
     <Route path="/" element={<Homepage/>} />
     <Route path="/contact-us" element={<ContentContactUs/>}/>
     <Route path="/login" element={<ContentPakage/>}/>
+    <Route path="/reset-password" element={<ResetContent/>}/>
+    <Route path="/account" element={<AccountContent/>}/>
     <Route path="/register" element={<PakageRegisterContent/>}/>
     <Route path="/about" element={<ContentAbout/>}/>
     <Route path="/pakages" element={<ShowPakages/>}/>

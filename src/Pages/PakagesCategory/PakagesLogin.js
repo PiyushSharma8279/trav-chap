@@ -1,19 +1,21 @@
+// src/pages/Login.js
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function PakagesLogin() {
+export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
     const savedUser = localStorage.getItem("travchap_user");
     if (savedUser) {
-      setUser(JSON.parse(savedUser));
+      navigate("/account"); // Already logged in → redirect
     }
   }, []);
 
@@ -37,12 +39,11 @@ function PakagesLogin() {
 
       const res = await fetch(API_URL, { method: "POST", body: formData });
       const data = await res.json();
-      console.log("✅ Login API Response:", data);
 
       if (data.status === true || data.status === "success") {
-        const userData = data.data?.user || data.data || {}; // 🧠 handle nested object
+        const userData = data.data?.user || data.data || {};
         localStorage.setItem("travchap_user", JSON.stringify(userData));
-        setUser(userData);
+        navigate("/pakages");
       } else {
         setError(data.message || "❌ Invalid username or password.");
       }
@@ -54,60 +55,6 @@ function PakagesLogin() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("travchap_user");
-    setUser(null);
-  };
-
-  // ✅ If logged in
-  if (user) {
-    return (
-      <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
-        <div className="bg-white shadow-lg rounded-lg p-8 max-w-md w-full">
-          <h2 className="text-2xl font-bold text-[#0a2c53] mb-6 text-center">
-            Your Account
-          </h2>
-
-          <div className="space-y-4 text-gray-700">
-            <p>
-              <span className="font-semibold">👤 Name:</span>{" "}
-              {user.full_name || user.name || "N/A"}
-            </p>
-            <p>
-              <span className="font-semibold">📧 Email:</span>{" "}
-              {user.email || "N/A"}
-            </p>
-            <p>
-              <span className="font-semibold">🆔 Username:</span>{" "}
-              {user.username || "N/A"}
-            </p>
-            {user.mobile && (
-              <p>
-                <span className="font-semibold">📱 Mobile:</span> {user.mobile}
-              </p>
-            )}
-          </div>
-
-          <div className="mt-8 flex flex-col gap-4">
-            <button
-              onClick={() => navigate("/pakages")}
-              className="w-full bg-[#0a2c53] text-white py-2 rounded-lg hover:bg-[#103b73] transition"
-            >
-              Go to Packages
-            </button>
-            <button
-              onClick={handleLogout}
-              className="w-full border border-[#0a2c53] text-[#0a2c53] py-2 rounded-lg hover:bg-[#0a2c53] hover:text-white transition"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // ✅ Otherwise show login form
   return (
     <>
       <div
@@ -141,7 +88,7 @@ function PakagesLogin() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none"
             />
           </div>
 
@@ -154,7 +101,7 @@ function PakagesLogin() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md focus:outline-none"
             />
           </div>
 
@@ -175,20 +122,15 @@ function PakagesLogin() {
           </button>
 
           <div className="mt-6 text-center">
-            <a
+            <p
               onClick={() => navigate("/register")}
-              className="text-blue-300 cursor-pointer hover:underline block"
+              className="text-blue-300 cursor-pointer hover:underline"
             >
               Register
-            </a>
-            <a href="#" className="text-blue-300 hover:underline block mt-2">
-              Forgot password?
-            </a>
+            </p>
           </div>
         </form>
       </div>
     </>
   );
 }
-
-export default PakagesLogin;

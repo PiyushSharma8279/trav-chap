@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 function DomesticPackages() {
   const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,7 +17,6 @@ function DomesticPackages() {
       try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Failed to fetch packages");
-
         const result = await res.json();
 
         if (result.status && Array.isArray(result.data)) {
